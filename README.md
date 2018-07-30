@@ -1,4 +1,4 @@
-# wxFETemplateForVant
+# wxFETemplateForWEUI
 
 > A Vue.js project
 
