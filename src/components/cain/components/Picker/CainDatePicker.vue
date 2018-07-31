@@ -52,6 +52,7 @@ export default {
       weui.datePicker({
         start,
         end,
+        id: Cain.getUUID(),
         defaultValue: [
           currentValue.getFullYear(),
           currentValue.getMonth() + 1,

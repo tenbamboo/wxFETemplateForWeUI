@@ -56,7 +56,7 @@ export default {
     // value 选中的值
     show (list, defaultValue = '') {
       weui.picker(this.formatValue(list), {
-        container: 'body',
+        id: Cain.getUUID(),
         defaultValue: [defaultValue],
         onChange: result => {
           this.$emit('change', result)
