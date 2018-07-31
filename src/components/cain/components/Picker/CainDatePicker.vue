@@ -20,11 +20,11 @@ export default {
   props: {
     value: '',
     startDate: {
-      type: Date
+      type: String
       // default: new Date()
     },
     endDate: {
-      type: Date
+      type: String
     }
   },
   mounted () {},
@@ -40,14 +40,20 @@ export default {
         let now = new Date()
         now.setFullYear(now.getFullYear() + 20)
         end = now
+      } else {
+        end = new Date(end)
       }
       if (!start && Cain.isBlank(start)) {
         let now = new Date()
         start = now
+      } else {
+        start = new Date(start)
       }
       let currentValue = this.value
       if (!currentValue && Cain.isBlank(currentValue)) {
         currentValue = new Date()
+      } else {
+        currentValue = new Date(currentValue)
       }
       weui.datePicker({
         start,

@@ -23,9 +23,9 @@ export default {
   },
   data () {
     return {
-      defaultValue: new Date('1980/02/14'),
-      startDate: new Date('1950/01/01'),
-      endDate: new Date('2000/01/01')
+      defaultValue: '1980/02/14',
+      startDate: '1950/01/01',
+      endDate: '2000/01/01'
     }
   },
   mounted () {
