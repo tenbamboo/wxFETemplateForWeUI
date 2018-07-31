@@ -517,6 +517,9 @@ export default {
   //       resolve(user)
   //     })
   //   },
+  getUserInfo () {
+    return JSON.parse(sessionStorage.getItem('rootUserInfo'))
+  },
   /**
    * @public
    * @function
@@ -783,6 +786,21 @@ export default {
   scrollTo (val = 0) {
     document.documentElement.scrollTop = val
     document.body.scrollTop = val
+  },
+  /**
+   * @public
+   * @function
+   * @todo  获取cookie信息
+   * @memberof Cain
+   */
+  getCookie (key) {
+    var strcookie = document.cookie
+    var arrcookie = strcookie.split('; ')
+    for (var i = 0; i < arrcookie.length; i++) {
+      var arr = arrcookie[i].split('=')
+      if (arr[0] === key) return decodeURIComponent(arr[1]) // 增加对特殊字符的解析
+    }
+    return ''
   }
 
 }

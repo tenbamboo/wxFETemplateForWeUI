@@ -71,6 +71,16 @@ const router = [
       // isShowBar: true,
       // keepAlive: true
     }
+  },
+  {
+    path: '/demo/scroller',
+    component: resolve => require(['@/components/demo/scroller'], resolve),
+    name: 'scroller',
+    meta: {
+      // isShowBar: true,
+      // keepAlive: true
+    }
   }
+
 ]
 export default router

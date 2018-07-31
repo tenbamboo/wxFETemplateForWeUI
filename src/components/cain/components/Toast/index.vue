@@ -56,11 +56,11 @@ export default {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 200;
   }
   .toast {
     padding: 60px 20px;
-    z-index: 2;
+    z-index: 201;
     background-color: #fff;
     width: 70%;
     min-height: 280px;

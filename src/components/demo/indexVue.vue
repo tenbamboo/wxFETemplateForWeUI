@@ -4,7 +4,8 @@
     <a @click="gotoPage('/demo/toast')">Toast消息</a>
     <a @click="gotoPage('/demo/loading')">loading</a>
     <a @click="gotoPage('/demo/singlePicker')">单选Picker</a>
-      <a @click="gotoPage('/demo/datePicker')">日期Picker</a>
+    <a @click="gotoPage('/demo/datePicker')">日期Picker</a>
+    <a @click="gotoPage('/demo/scroller')">scroller</a>
     <!--
     <a @click="gotoPage('/demo/muiltPicker')">多选Picker</a>
   -->
