@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div ref="wrapper" class="cainScrollWrapper">
 
-    <div class="cainScrollWrap" :style="{top:scrollerStyle.top+'px',bottom:scrollerStyle.bottom+'px'}">
+    <div class="cainScrollWrap" :style="scrollerStyle" ref="cainScrollWrap">
       <div class="pulldown-wrapper" :style="pullDownStyle" v-if="pullDownRefresh">
         <div class="before-trigger" v-if="beforePullDown">
           <bubble :y="bubbleY"></bubble>
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       scroller: null,
-      scrollerStyle: {},
+      scrollerStyle: '',
       isPullingDown: false,
       isPullUpLoad: false,
       pullDownStyle: {},
@@ -75,11 +75,18 @@ export default {
   },
   methods: {
     init () {
+      // if (this.pullDownRefresh || this.pullUpLoad) {
+      //   let height = this._getRect(this.$refs.wrapper).height + 1
+      //   console.log(height)
+      //   this.scrollerStyle += `min-height:${height}px;`
+      //   // this.$refs.wrapper.style.minHeight = `${height}px`
+      // }
       if (!Cain.isBlank(this.top)) {
-        this.scrollerStyle.top = this.top
+        this.scrollerStyle += `top:${this.top}px;`
       }
       if (!Cain.isBlank(this.bottom)) {
-        this.scrollerStyle.bottom = this.bottom
+        this.scrollerStyle += `bottom:${this.bottom}px;`
+        // this.scrollerStyle.bottom = this.bottom
       }
       let config = this._getConfig()
 
@@ -128,7 +135,6 @@ export default {
       this.scroller.on('pullingDown', () => {
         this.isPullingDown = true
         this.beforePullDown = false
-        console.log(1111)
         this.$emit('pullingDown')
       })
 
@@ -151,6 +157,24 @@ export default {
         }
       })
     },
+    _getRect (el) {
+      if (el instanceof window.SVGElement) {
+        let rect = el.getBoundingClientRect()
+        return {
+          top: rect.top,
+          left: rect.left,
+          width: rect.width,
+          height: rect.height
+        }
+      } else {
+        return {
+          top: el.offsetTop,
+          left: el.offsetLeft,
+          width: el.offsetWidth,
+          height: el.offsetHeight
+        }
+      }
+    },
     // 标记结束事件并刷新
     finish () {
       if (this.isPullingDown) {
@@ -169,7 +193,6 @@ export default {
       })
     },
     _reboundPullDown () {
-      console.log('_reboundPullDown')
       const { stopTime = 600 } = this.pullDownRefresh
       return new Promise(resolve => {
         setTimeout(() => {
@@ -204,38 +227,42 @@ export default {
 </script>
 
 <style   lang="scss">
-.cainScrollWrap {
-  position: fixed;
-  // position: absolute;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  bottom: 30px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
+.cainScrollWrapper {
   height: 100%;
-
-  .scroll {
-    height: 100%;
-    &::after {
-      display: table;
-      content: " ";
-      clear: both;
-      height: 20px;
-    }
-  }
-  .pulldown-wrapper {
-    position: absolute;
-    width: 100%;
+  position: relative;
+  .cainScrollWrap {
+    position: fixed;
+    // position: absolute;
+    z-index: 1;
     left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all;
-    .after-trigger {
-      margin-top: 10px;
+    top: 0;
+    // bottom: 30px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100%;
+
+    .scroll {
+      height: 100%;
+      &::after {
+        display: table;
+        content: " ";
+        clear: both;
+        height: 20px;
+      }
+    }
+    .pulldown-wrapper {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all;
+      .after-trigger {
+        margin-top: 10px;
+      }
     }
   }
 }
